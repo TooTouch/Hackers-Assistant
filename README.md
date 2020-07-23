@@ -6,7 +6,7 @@ This is a repository for automatic programs helped works easily during hackers a
 2. Check students' comments 
 
 
-# Update the number of student applied classes
+# 1. Update the number of student applied classes
 
 **How to run**
 ```bash
@@ -34,7 +34,7 @@ python students.py --id=YOUR_ID --pwd=YOUR_PASSWORD
 
 
 
-# Check students' comments
+# 2. Check students' comments
 
 **How to run**
 ```bash
