@@ -5,6 +5,9 @@ This is a repository for automatic programs helped works easily during hackers a
 1. Update the number of student applied classes
 2. Check students' comments 
 
+**Requirements**
+- Hackers assistance ID and PASSWORD
+    https://www.hackers.ac/teachers/index.php
 
 # 1. Update the number of student applied classes
 
