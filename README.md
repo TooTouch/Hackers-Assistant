@@ -45,12 +45,12 @@ python comments.py --id=YOUR_ID --pwd=YOUR_PASSWORD \
 **Result**
 - Notion collection(table)
 
-Features | Description
----|---
-title | post title
-name | publisher name
-category | 1. notice 2. question
-class_name | class name (full-name)
-date | published date
-nb_comment | the number of comment
-url  | post url
+    Features | Description
+    ---|---
+    title | post title
+    name | publisher name
+    category | 1. notice 2. question
+    class_name | class name (full-name)
+    date | published date
+    nb_comment | the number of comment
+    url  | post url
