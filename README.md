@@ -40,9 +40,12 @@ python students.py --id=YOUR_ID --pwd=YOUR_PASSWORD
 # 2. Check students' comments
 
 **How to run**
+
+If you don't know how to get token_v2, you can find the information in [this](https://github.com/TooTouch/notionist).
+
 ```bash
 python comments.py --id=YOUR_ID --pwd=YOUR_PASSWORD \
-                    --token_v2=YOUR_token_v2 --url=NOTION_URL
+                    --token_v2=YOUR_notion_token_v2 --url=NOTION_URL
 ```
 
 **Result**
