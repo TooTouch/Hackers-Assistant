@@ -163,7 +163,7 @@ def get_schema_todo(cols):
     for col in cols:
         table_attr[col] = {'name':col, 'type':'text'}  
 
-    return table_attr  R
+    return table_attr
 
 if __name__=='__main__':
 
