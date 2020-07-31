@@ -152,7 +152,7 @@ def add_notion(token_v2, url, df):
     child = page.children.add_new(CollectionViewBlock)
     child.collection = client.get_collection(
         client.create_record(
-            "collection", parent=child, schema=get_schema_todo(df.columns)
+            "collection", parent=child, schema=get_schema_comments(df.columns)
         )
     )
 
@@ -168,7 +168,7 @@ def add_notion(token_v2, url, df):
             row.set_property(col, str(df.iloc[i][col]))
     
 
-def get_schema_todo(cols):
+def get_schema_comments(cols):
     table_attr = {
         "title": {"name": "INDEX", "type": "title"}
     }
