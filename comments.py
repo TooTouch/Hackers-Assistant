@@ -17,6 +17,8 @@ import pandas as pd
 import datetime
 import argparse
 
+all = []
+
 def get_board_list(ID, PWD):
     login_url = 'https://www.hackers.ac/teachers/index.php'
 
@@ -118,15 +120,24 @@ def get_comment_urls(driver, boards_info):
         lis = b_lst.find_elements_by_tag_name('li')
         
         for li in lis:
-            if 'LC' in li.text:
+            if ('LC' in li.text) or ('L/C' in li.text):
                 li.click()
                 time.sleep(2)
                 df = get_is_comments(driver)
                 break  
 
         if len(df) > 0:
-            df['class_name'] = boards_info['title']
+            df['class_name'] = boards_info[boards_info['url']==url]['title'].values[0]
+            
             total_df = pd.concat([total_df,df], axis=0)
+
+            total_df.index = range(total_df.shape[0])
+
+    # remove duplicated comments        
+    total_df_drop = total_df[['title','category','date','name','nb_comment']].drop_duplicates()
+    total_df = pd.merge(total_df_drop.reset_index(), total_df[['class_name','url']].reset_index(), how='left', on='index')
+    total_df = total_df.drop('index', axis=1)
+    total_df = total_df.sort_values(['category','date'])
 
     return total_df
     
@@ -148,7 +159,7 @@ def add_notion(token_v2, url, df):
     child.title = datetime.datetime.now()
     child.views.add_new(view_type='table')
 
-    for i in range(len(df)):  
+    for i in track(range(len(df))):  
         row = child.collection.add_row()
         row.set_property('title', str(i))
         for col in df.iloc[i].index:
@@ -165,20 +176,5 @@ def get_schema_todo(cols):
 
     return table_attr
 
-if __name__=='__main__':
 
-    parse = argparse.ArgumentParser()
-    parse.add_argument('--id',type=str,help='ID')
-    parse.add_argument('--pwd',type=str,help='PASSWORD')
-    parse.add_argument('--token_v2',type=str,help='Notion token_v2')
-    parse.add_argument('--url',type=str,help='Notion page url')
-    args = parse.parse_args()
-
-    driver = get_board_list(args.id, args.pwd)
-    boards_info, driver = get_board_urls(driver)
-    total_df = get_comment_urls(driver, boards_info)
-
-    total_df = total_df.drop_duplicates().sort_values(['category','date'])
-    add_notion(args.token_v2, args.url, total_df)
-
-    print('[Complete] Number of boards with comments: ',total_df.shape[0])
+    
