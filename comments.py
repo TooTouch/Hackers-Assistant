@@ -6,9 +6,6 @@ from selenium.common.exceptions import NoSuchElementException
 
 from bs4 import BeautifulSoup as BSoup
 
-from rich.progress import track
-from rich import print
-
 from notion.client import NotionClient
 from notion.block import CollectionViewBlock
 
@@ -111,7 +108,7 @@ def get_is_comments(driver):
 def get_comment_urls(driver, boards_info):
     total_df = pd.DataFrame()
 
-    for url in track(boards_info['url']):
+    for url in boards_info['url']:
         driver.get(url)
         driver.implicitly_wait(10)
 
@@ -158,7 +155,7 @@ def add_notion(token_v2, url, df):
     child.title = datetime.datetime.now()
     child.views.add_new(view_type='table')
 
-    for i in track(range(len(df))):  
+    for i in range(len(df)):  
         row = child.collection.add_row()
         row.set_property('title', str(i))
         for col in df.iloc[i].index:
