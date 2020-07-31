@@ -8,6 +8,8 @@ This is a repository for automatic programs helped works easily during hackers a
 **Requirements**
 - Hackers assistance ID and PASSWORD  
     https://www.hackers.ac/teachers/index.php
+- Notion page url and token_v2  
+    [How to get token_v2](https://github.com/TooTouch/notionist)
 
 # 1. Update the number of student applied classes
 
