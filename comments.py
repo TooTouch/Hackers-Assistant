@@ -13,12 +13,15 @@ import time
 import pandas as pd
 import datetime
 
-all = []
-
 def get_board_list(ID, PWD):
     login_url = 'https://www.hackers.ac/teachers/index.php'
 
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    options.add_argument("disable-gpu")
+    options.add_argument("--no-sandbox")
+
+    driver = webdriver.Chrome('chromedriver',chrome_options=options)
     driver.get(login_url)
     driver.implicitly_wait(10)
 
