@@ -3,9 +3,9 @@
 
 name: Hackers Comments Crawler
 
-# on:
-#   schedule: 
-#     - cron: '0 * * * *'
+on:
+  # schedule: 
+  #   - cron: '* * * * *'
 
 jobs:
   build:
