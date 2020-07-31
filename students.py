@@ -106,8 +106,8 @@ if __name__=='__main__':
     df = students_check(args.id, args.pwd)    
     groupby = df.groupby(['title','class_time'])['nb_students'].sum()
 
-    df.to_csv('../data/students {}.csv'.format(datetime.datetime.now()).replace(':','.'), index=False, encoding='cp949')
-    groupby.to_csv('../data/students_stats {}.csv'.format(datetime.datetime.now()).replace(':','.'), encoding='cp949')
+    df.to_csv('./data/students {}.csv'.format(datetime.datetime.now()).replace(':','.'), index=False, encoding='cp949')
+    groupby.to_csv('./data/students_stats {}.csv'.format(datetime.datetime.now()).replace(':','.'), encoding='cp949')
 
 
 
