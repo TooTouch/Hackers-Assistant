@@ -15,7 +15,6 @@ from notion.block import CollectionViewBlock
 import time 
 import pandas as pd
 import datetime
-import argparse
 
 all = []
 
