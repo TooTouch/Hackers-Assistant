@@ -17,8 +17,8 @@ if __name__=='__main__':
 
     ha_id = os.environ['HA_ID']
     ha_pwd = os.environ['HA_PWD']
-    token_v2 = os.environ['token_v2']
-    ha_notion = os.environ['HA_notion']
+    token_v2 = os.environ['TOKEN_V@']
+    ha_notion = os.environ['HA_NOTION']
 
     run(ha_id, ha_pwd, token_v2, ha_notion)
 
