@@ -155,7 +155,10 @@ def add_notion(token_v2, url, df):
             "collection", parent=child, schema=get_schema_todo(df.columns)
         )
     )
-    child.title = datetime.datetime.now()
+
+    # set korea time
+    kor_time = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+    child.title = kor_time
     child.views.add_new(view_type='table')
 
     for i in range(len(df)):  
