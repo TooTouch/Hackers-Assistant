@@ -50,7 +50,7 @@ I use github action which runs periodically comments.py. If you want to know how
     ---|---
     title | post title
     name | publisher name
-    category | 1. notice 2. question
+    category | 1. teacher 2. student
     class_name | class name (full-name)
     date | published date
     nb_comment | the number of comment
