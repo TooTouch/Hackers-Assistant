@@ -83,14 +83,14 @@ def get_is_comments(driver):
             date = row.select_one('td.date').get_text().strip()
             if sbj.select_one('span.comment.hand'):
                 titles.append(title.get_text().strip())
-                categories.append('notice' if row.select_one('td:nth-child(2) > div') is not None else 'question')
+                categories.append('teacher' if row.select_one('td:nth-child(2) > div') is not None else 'student')
                 urls.append('https://www.hackers.ac'+title['href'])
                 nb_comments.append(sbj.select_one('span.comment.hand').get_text().strip()[1:-1])
                 names.append(name)
                 dates.append(date)
             elif '김동현' not in name:
                 titles.append(title.get_text().strip())
-                categories.append('notice' if row.select_one('td:nth-child(2) > div') is not None else 'question')
+                categories.append('teacher' if row.select_one('td:nth-child(2) > div') is not None else 'student')
                 urls.append('https://www.hackers.ac'+title['href'])
                 nb_comments.append('0')
                 names.append(name)
@@ -136,7 +136,7 @@ def get_comment_urls(driver, boards_info):
     total_df_drop = total_df[['title','category','date','name','nb_comment']].drop_duplicates()
     total_df = pd.merge(total_df_drop.reset_index(), total_df[['class_name','url']].reset_index(), how='left', on='index')
     total_df = total_df.drop('index', axis=1)
-    total_df = total_df.sort_values(['category','date'])
+    total_df = total_df.sort_values(['category','date'],ascending=[True,False])
 
     return total_df
     
@@ -171,7 +171,23 @@ def get_schema_todo(cols):
     }
 
     for col in cols:
-        table_attr[col] = {'name':col, 'type':'text'}  
+        if col=='url':
+            table_attr[col] = {'name':col, 'type':'url'}
+        elif col=='category':
+            table_attr[col] = {
+                'name':col,
+                'type': 'select',
+                'options': [
+                    {'id': 'd91302e8-2e91-4911-81c9-042c32e106d3',
+                    'color': 'purple',
+                    'value': 'teacher'},
+                    {'id': '9bcf09c0-d1e9-4195-a59c-8304e0b235c0',
+                    'color': 'green',
+                    'value': 'student'}
+                ]
+            }          
+        else:
+            table_attr[col] = {'name':col, 'type':'text'}
 
     return table_attr
 
