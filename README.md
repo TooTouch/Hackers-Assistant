@@ -11,7 +11,7 @@ This is a repository for automatic programs helped works easily during hackers a
 
 # 1. Update the number of student applied classes
 
-**How to run**
+**Run**
 ```bash
 python students.py --id=YOUR_ID --pwd=YOUR_PASSWORD
 ```
@@ -39,17 +39,12 @@ python students.py --id=YOUR_ID --pwd=YOUR_PASSWORD
 
 # 2. Check students' comments
 
-**How to run**
+**Run**
 
-If you don't know how to get token_v2, you can find the information in [this](https://github.com/TooTouch/notionist).
-
-```bash
-python comments.py --id=YOUR_ID --pwd=YOUR_PASSWORD \
-                    --token_v2=YOUR_notion_token_v2 --url=NOTION_URL
-```
+I use github action which runs periodically comments.py. If you want to know how to set options, you can see [here](https://github.com/TooTouch/Hackers-Assistance/blob/master/.github/workflows/python-package.yml).
 
 **Result**
-- Notion collection(table)
+- Dataframe Description
 
     Features | Description
     ---|---
@@ -60,3 +55,6 @@ python comments.py --id=YOUR_ID --pwd=YOUR_PASSWORD \
     date | published date
     nb_comment | the number of comment
     url  | post url
+
+- Notion Collection(Table)
+    ![comments](https://user-images.githubusercontent.com/37654013/89047569-901cac80-d389-11ea-8b35-8af1fb631945.png)
