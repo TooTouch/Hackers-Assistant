@@ -4,12 +4,8 @@
 name: Hackers Comments Crawler
 
 on:
-  push:
-      branches: [ master ]
-  pull_request:
-      branches: [ master ]
-  # schedule: 
-  #   - cron: '* * * * *'
+  schedule: 
+    - cron: '0 * * * *'
 
 jobs:
   build:
