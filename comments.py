@@ -48,6 +48,10 @@ def get_board_list(ID, PWD):
     return driver
 
 def get_board_urls(driver):
+    # select month
+    select = Select(driver.find_element_by_xpath('//*[@id="changeDate"]'))
+    select.select_by_value('202007')
+
     bs_obj = BSoup(driver.page_source, 'html.parser')
     rows = bs_obj.select_one('#thisMonthTable > table > tbody').find_all('tr')
 
