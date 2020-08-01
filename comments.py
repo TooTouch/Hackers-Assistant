@@ -147,8 +147,8 @@ def get_comment_urls(driver, boards_info):
 def add_notion(token_v2, url, df):
     # update comments
     try:
-        print(['[NOTION] Update comments table'])
         df = update_comments_table(df)
+        print('[NOTION] Update comments table')
     except:
         print('[NOTION] Create new comments table')
         # add check box property
@@ -156,6 +156,7 @@ def add_notion(token_v2, url, df):
 
     df = df.sort_values(['check','date'],ascending=[False,False])
 
+    print(df.info())
     client = NotionClient(token_v2=token_v2)
     page = client.get_block(url)
 
@@ -230,5 +231,6 @@ def update_comments_table(token_v2, url, new_df):
     update_df = pd.merge(old_df, update_df, on=update_df.columns.tolist(), how='right')
     # fill NA to False in 'check' feature
     update_df['check'] = update_df['check'].fillna(False)
+    update_df = update_df[new_df.columns.tolist() + ['check']]
 
     return update_df
