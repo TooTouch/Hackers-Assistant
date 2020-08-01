@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup as BSoup
 
 from notion.client import NotionClient
 from notion.block import CollectionViewBlock
+from notionist import collection_api
 
 import time 
 import pandas as pd
@@ -140,11 +141,21 @@ def get_comment_urls(driver, boards_info):
     total_df_drop = total_df[['title','category','date','name','nb_comment']].drop_duplicates()
     total_df = pd.merge(total_df_drop.reset_index(), total_df[['class_name','url']].reset_index(), how='left', on='index')
     total_df = total_df.drop('index', axis=1)
-    total_df = total_df.sort_values(['category','date'],ascending=[True,False])
 
     return total_df
     
 def add_notion(token_v2, url, df):
+    # update comments
+    try:
+        print(['[NOTION] Update comments table'])
+        df = update_comments_table(df)
+    except:
+        print('[NOTION] Create new comments table')
+        # add check box property
+        df['check'] = False
+
+    total_df = total_df.sort_values(['check','date'],ascending=[False,False])
+
     client = NotionClient(token_v2=token_v2)
     page = client.get_block(url)
 
@@ -169,7 +180,10 @@ def add_notion(token_v2, url, df):
         row = child.collection.add_row()
         row.set_property('title', str(i))
         for col in df.iloc[i].index:
-            row.set_property(col, str(df.iloc[i][col]))
+            if col == 'check':
+                row.set_property(col, df.iloc[i][col])
+            else:
+                row.set_property(col, str(df.iloc[i][col]))
     
 
 def get_schema_comments(cols):
@@ -192,11 +206,29 @@ def get_schema_comments(cols):
                     'color': 'green',
                     'value': 'student'}
                 ]
-            }          
+            }
+        elif col=='checkbox':
+            table_attr[col] = {'name':col, 'type':'checkbox'}         
         else:
             table_attr[col] = {'name':col, 'type':'text'}
 
     return table_attr
 
+def update_comments_table(token_v2, url, new_df):
+    # extract old comments table
+    CE = collection_api.CollectionExtract(token_v2)
+    old_df = CE.table_extract(url)
 
-    
+    # update comments table
+    update_df = pd.concat([old_df.drop('check',axis=1), new_df], axis=0).drop_duplicates()
+    update_df['nb_comment'] = update_df['nb_comment'].astype(int)
+
+    col = new_df.columns.tolist().remove('nb_comment')
+    update_df = update_df.groupby(col).max().reset_index()
+    update_df = update_df.astype(str)
+
+    update_df = pd.merge(old_df, update_df, on=update_df.columns.tolist(), how='right')
+    # fill NA to False in 'check' feature
+    update_df['check'] = update_df['check'].fillna(False)
+
+    return update_df
