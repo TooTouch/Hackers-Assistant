@@ -11,9 +11,10 @@ if __name__=='__main__':
 
     driver = get_board_list(ha_id, ha_pwd)
     boards_info, driver = get_board_urls(driver)
-    total_df = get_comment_urls(driver, boards_info)
-    print('[COMPLETE] Number of boards with comments: ',total_df.shape[0])
-    add_notion(token_v2, ha_notion, total_df)
+    new_df = get_comment_urls(driver, boards_info)
+    print('[COMPLETE] Number of boards with comments: ',new_df.shape[0])
+    
+    add_notion(token_v2, ha_notion, new_df)
     print('[COMPLETE] Create a table in Notion')
 
     
