@@ -154,7 +154,7 @@ def add_notion(token_v2, url, df):
     #     # add check box property
     #     df['check'] = False
 
-    df = update_comments_table(df)
+    df = update_comments_table(token_v2, url, df)
     print('[NOTION] Update comments table')
 
     df = df.sort_values(['check','date'],ascending=[False,False])
