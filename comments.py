@@ -153,7 +153,7 @@ def add_notion(token_v2, url, df):
     #     print('[NOTION] Create new comments table')
     #     # add check box property
     #     df['check'] = False
-
+ 
     df = update_comments_table(token_v2, url, df)
     print('[NOTION] Update comments table')
 
