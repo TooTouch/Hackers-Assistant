@@ -182,7 +182,7 @@ def add_notion(token_v2, url, df):
         row.set_property('title', str(i))
         for col in df.iloc[i].index:
             if col == 'check':
-                row.set_property(col, df.iloc[i][col])
+                row.set_property(col, bool(df.iloc[i][col]))
             else:
                 row.set_property(col, str(df.iloc[i][col]))
     
