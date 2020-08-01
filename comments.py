@@ -207,7 +207,7 @@ def get_schema_comments(cols):
                     'value': 'student'}
                 ]
             }
-        elif col=='checkbox':
+        elif col=='check':
             table_attr[col] = {'name':col, 'type':'checkbox'}         
         else:
             table_attr[col] = {'name':col, 'type':'text'}
