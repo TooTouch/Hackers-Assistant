@@ -2,3 +2,4 @@ selenium==3.141.0
 notion==0.0.25
 pandas==1.0.3
 beautifulsoup4==4.7.1
+notionist==0.2
