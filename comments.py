@@ -154,7 +154,7 @@ def add_notion(token_v2, url, df):
         # add check box property
         df['check'] = False
 
-    total_df = total_df.sort_values(['check','date'],ascending=[False,False])
+    df = df.sort_values(['check','date'],ascending=[False,False])
 
     client = NotionClient(token_v2=token_v2)
     page = client.get_block(url)
