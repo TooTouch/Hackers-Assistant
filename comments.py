@@ -227,7 +227,8 @@ def update_comments_table(token_v2, url, new_df):
     update_df = pd.concat([old_df.drop('check',axis=1), new_df], axis=0).drop_duplicates()
     update_df['nb_comment'] = update_df['nb_comment'].astype(int)
 
-    col = new_df.columns.tolist().remove('nb_comment')
+    col = new_df.columns.tolist()
+    col.remove('nb_comment')
     update_df = update_df.groupby(col).max().reset_index()
     update_df = update_df.astype(str)
 
