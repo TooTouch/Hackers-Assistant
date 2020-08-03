@@ -117,26 +117,28 @@ def get_comment_urls(driver, boards_info):
     total_df = pd.DataFrame()
 
     for url in boards_info['url']:
-        driver.get(url)
-        driver.implicitly_wait(10)
+        try:
+            driver.get(url)
+            driver.implicitly_wait(10)
 
-        b_lst = driver.find_element_by_css_selector('#bbslist > div.info > div > ul')
-        lis = b_lst.find_elements_by_tag_name('li')
-        
-        for li in lis:
-            if ('LC' in li.text) or ('L/C' in li.text):
-                li.click()
-                time.sleep(2)
-                df = get_is_comments(driver)
-                break  
-
-        if len(df) > 0:
-            df['class_name'] = boards_info[boards_info['url']==url]['title'].values[0]
+            b_lst = driver.find_element_by_css_selector('#bbslist > div.info > div > ul')
+            lis = b_lst.find_elements_by_tag_name('li')
             
-            total_df = pd.concat([total_df,df], axis=0)
+            for li in lis:
+                if ('LC' in li.text) or ('L/C' in li.text):
+                    li.click()
+                    time.sleep(2)
+                    df = get_is_comments(driver)
+                    break  
 
-            total_df.index = range(total_df.shape[0])
+            if len(df) > 0:
+                df['class_name'] = boards_info[boards_info['url']==url]['title'].values[0]
+                
+                total_df = pd.concat([total_df,df], axis=0)
 
+                total_df.index = range(total_df.shape[0])
+        except:
+            print("This board's url does not open yet.")
     # remove duplicated comments        
     total_df_drop = total_df[['title','category','date','name','nb_comment']].drop_duplicates()
     total_df = pd.merge(total_df_drop.reset_index(), total_df[['class_name','url']].reset_index(), how='left', on='index')
