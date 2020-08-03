@@ -139,25 +139,26 @@ def get_comment_urls(driver, boards_info):
                 total_df.index = range(total_df.shape[0])
         except:
             print("This board's url does not open yet.")
-    # remove duplicated comments        
-    total_df_drop = total_df[['title','category','date','name','nb_comment']].drop_duplicates()
-    total_df = pd.merge(total_df_drop.reset_index(), total_df[['class_name','url']].reset_index(), how='left', on='index')
-    total_df = total_df.drop('index', axis=1)
+    
+    try:
+        # remove duplicated comments        
+        total_df_drop = total_df[['title','category','date','name','nb_comment']].drop_duplicates()
+        total_df = pd.merge(total_df_drop.reset_index(), total_df[['class_name','url']].reset_index(), how='left', on='index')
+        total_df = total_df.drop('index', axis=1)
+    except:
+        print('Comments do not exist.')
 
     return total_df
     
 def add_notion(token_v2, url, df):
     # update comments
-    # try:
-    #     df = update_comments_table(df)
-    #     print('[NOTION] Update comments table')
-    # except:
-    #     print('[NOTION] Create new comments table')
-    #     # add check box property
-    #     df['check'] = False
- 
-    df = update_comments_table(token_v2, url, df)
-    print('[NOTION] Update comments table')
+    try:
+        df = update_comments_table(df)
+        print('[NOTION] Update comments table')
+    except:
+        print('[NOTION] Create new comments table')
+        # add check box property
+        df['check'] = False
 
     df = df.sort_values(['check','date'],ascending=[False,False])
 
