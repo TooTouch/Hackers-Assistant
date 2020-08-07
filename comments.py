@@ -152,15 +152,14 @@ def get_comment_urls(driver, boards_info):
     
 def add_notion(token_v2, url, df):
     # update comments
-    df = update_comments_table(token_v2, url, df)
-    print('[NOTION] Update comments table')
-    # try:
-    #     df = update_comments_table(df)
-    #     print('[NOTION] Update comments table')
-    # except:
-    #     print('[NOTION] Create new comments table')
-    #     # add check box property
-    #     df['check'] = False
+    
+    try:
+        df = update_comments_table(token_v2, url, df)
+        print('[NOTION] Update comments table')
+    except:
+        print('[NOTION] Create new comments table')
+        # add check box property
+        df['check'] = False
 
     df = df.sort_values(['check','date'],ascending=[False,False])
 

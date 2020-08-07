@@ -4,12 +4,8 @@
 name: Hackers Comments Crawler
 
 on:
-  push:
-      branches: [ master ]
-  pull_request:
-      branches: [ master ]
-#   schedule: 
-#     - cron: '0 * * * *'
+  schedule: 
+    - cron: '0 * * * *'
 
 jobs:
   build:
@@ -42,4 +38,3 @@ jobs:
         HA_PWD: ${{ secrets.HA_PWD }}
         TOKEN_V2: ${{ secrets.TOKEN_V2 }}
         HA_NOTION: ${{ secrets.HA_NOTION }}
-        HA_MONTH: ${{ secrets.HA_MONTH }}
