@@ -152,7 +152,7 @@ def get_comment_urls(driver, boards_info):
     
 def add_notion(token_v2, url, df):
     # update comments
-    df = update_comments_table(df)
+    df = update_comments_table(token_v2, url, df)
     print('[NOTION] Update comments table')
     # try:
     #     df = update_comments_table(df)
