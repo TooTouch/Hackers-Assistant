@@ -1,6 +1,6 @@
 # Hackers Assistance
 
-This is a repository for automatic programs helped work easily when I worked as hackers assistant in Hackers. I can reduce a lot of time that spent on other important matters through this repo. Program list is as follows.
+This is a repository for automatic programs helped work easily when I worked as hackers assistant in Hackers. I can save a lot of time that spent on other important matters through this repo. Program list is as follows.
 
 1. Update the number of student applied classes
 2. Check students' comments 
